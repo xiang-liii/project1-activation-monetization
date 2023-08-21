@@ -1,0 +1,18 @@
+create or replace table sandbox.XL_GM_activation_monetization_final as 
+(
+select reg_platform, paid_status, reg_channel, reg_source, campaign, feature, date_reg, country, state, primary_sport_detail_last_30d primary_sport, primary_feed_view_platform_last_30d primary_platform, 
+    count(*) register, 
+    count(date_trial_start) trials,
+    count(date_sub_start) subs,
+    sum(net_payment) revenue,
+    sum(in_premium_trial) trial_current,
+    sum(is_premium) sub_current,
+    sum(_1upload7) _1upload7,
+    sum(w2_retention) W2_retention,
+    sum(ltv_1year) ltv_1year,
+    sum(ltv_2year) ltv_2year
+from sandbox.xl_gm_activation_monetization_final_raw
+group by 1,2,3,4,5,6,7,8,9,10,11
+order by 1,2,3,4,5,6,7,8,9,10,11,12 desc
+)
+;
